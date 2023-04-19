@@ -1,0 +1,57 @@
+<!-- my_table.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<!-- Table -->
+<table class="table">
+  <thead>
+    <tr>
+      <th>Place</th>
+      <th>Name</th>
+      <th>Surname</th>
+      <th>Gender</th>
+      <th>Date of Birth</th>
+      <th>Distance</th>
+      <th>Result</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in items %}
+      <tr>
+        <td>{{ item.id }}</td>
+        <td>{{ item.fname }}</td>
+        <td>{{ item.lname }}</td>
+        <td>{{ item.gender_raw }}</td>
+        <td>{{ item.birthday }}</td>
+        <td>{{ item.race.dist }}</td>
+        <td>{{ item.time_raw }}</td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="7">No results found.</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+ <div class="pagination">
+    {% if items.has_previous %}
+        <a href="?page=1" class="btn btn-sm btn-primary">&laquo; First</a>&nbsp
+        <a href="?page={{ items.previous_page_number }}" class="btn btn-sm btn-primary">&lsaquo; Previous</a>&nbsp
+    {% endif %}
+
+    <span class="current-page">
+        &nbsp&nbspPage {{ items.number }} of {{ items.paginator.num_pages }}.&nbsp&nbsp
+    </span>
+
+    {% if items.has_next %}
+        <a href="?page={{ items.next_page_number }}" class="btn btn-sm btn-primary">Next &rsaquo;</a>&nbsp
+        <a href="?page={{ items.paginator.num_pages }}" class="btn btn-sm btn-primary">Last &raquo;</a>&nbsp
+    {% endif %}
+  </div>
+
+{% endblock %}
+{% include "footer.html" %}

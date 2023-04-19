@@ -8,6 +8,78 @@
 from django.db import models
 
 
+class Dist(models.Model):
+    dist = models.DecimalField(db_column='Dist', max_digits=8, decimal_places=4)  # Field name made lowercase.
+    dist_ed = models.CharField(db_column='Dist_ed', max_length=3)  # Field name made lowercase.
+    dj_type = models.SmallIntegerField()
+    dj_length = models.IntegerField()
+    dj_name = models.CharField(max_length=100)
+    dj_popularity_value = models.SmallIntegerField()
+    dj_added_time = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'dist'
+        unique_together = (('dist', 'dist_ed'), ('dj_type', 'dj_length'),)
+
+
+class Probegdist(models.Model):
+    probeg_id = models.IntegerField(db_column='Probeg_id')  # Field name made lowercase.
+    dj_surface_type = models.SmallIntegerField()
+    dist = models.DecimalField(db_column='Dist', max_digits=8, decimal_places=4)  # Field name made lowercase.
+    dj_ak_distance_raw = models.CharField(max_length=10)
+    dist_ed = models.CharField(db_column='Dist_ed', max_length=3)  # Field name made lowercase.
+    n_s = models.IntegerField(db_column='N_s', blank=True, null=True)  # Field name made lowercase.
+    dj_n_participants_men = models.IntegerField(blank=True, null=True)
+    n_u = models.IntegerField(db_column='N_u', blank=True, null=True)  # Field name made lowercase.
+    n_m = models.IntegerField(db_column='N_m', blank=True, null=True)  # Field name made lowercase.
+    namep1 = models.CharField(db_column='NameP1', max_length=100)  # Field name made lowercase.
+    namep2 = models.CharField(db_column='NameP2', max_length=100)  # Field name made lowercase.
+    koordp = models.CharField(db_column='KoordP', max_length=100)  # Field name made lowercase.
+    rez = models.CharField(db_column='Rez', max_length=10)  # Field name made lowercase.
+    dj_is_male_course_record = models.IntegerField()
+    namep1f = models.CharField(db_column='NameP1f', max_length=100)  # Field name made lowercase.
+    namep2f = models.CharField(db_column='NameP2f', max_length=100)  # Field name made lowercase.
+    koordpf = models.CharField(db_column='KoordPf', max_length=100)  # Field name made lowercase.
+    rezf = models.CharField(db_column='Rezf', max_length=10)  # Field name made lowercase.
+    dj_is_female_course_record = models.IntegerField()
+    komm = models.CharField(db_column='Komm', max_length=250)  # Field name made lowercase.
+    dj_comment_private = models.CharField(max_length=250)
+    dj_precise_name = models.CharField(max_length=50)
+    dj_gps_track = models.CharField(max_length=300)
+    dj_start_date = models.DateField(blank=True, null=True)
+    dj_start_time = models.TimeField(blank=True, null=True)
+    dj_finish_date = models.DateField(blank=True, null=True)
+    dj_elevation_meters = models.IntegerField(blank=True, null=True)
+    dj_descent_meters = models.IntegerField(blank=True, null=True)
+    dj_altitude_start_meters = models.IntegerField(blank=True, null=True)
+    dj_altitude_finish_meters = models.IntegerField(blank=True, null=True)
+    dj_start_lat = models.FloatField(blank=True, null=True)
+    dj_start_lon = models.FloatField(blank=True, null=True)
+    dj_loaded = models.SmallIntegerField()
+    dj_loaded_from = models.CharField(max_length=200)
+    dj_was_checked_for_klb = models.IntegerField()
+    dj_has_no_results = models.IntegerField()
+    dj_is_for_handicapped = models.IntegerField()
+    dj_is_multiday = models.IntegerField()
+    dj_timing = models.SmallIntegerField()
+    dj_price = models.IntegerField(blank=True, null=True)
+    dj_price_can_change = models.IntegerField()
+    itra_score = models.SmallIntegerField()
+    dj_distance = models.ForeignKey('Dist', models.DO_NOTHING)
+    dj_distance_real = models.ForeignKey('Dist', models.DO_NOTHING, blank=True, null=True)
+    winner_female_runner = models.ForeignKey('DjRunner', models.DO_NOTHING, blank=True, null=True)
+    winner_male_runner = models.ForeignKey('DjRunner', models.DO_NOTHING, blank=True, null=True)
+    certificate_id = models.IntegerField(blank=True, null=True)
+    not_in_klb = models.IntegerField()
+    dj_kept_for_reg_history_only = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'ProbegDist'
+        unique_together = (('probeg_year', 'dist', 'dist_ed', 'dj_precise_name'), ('probeg_year', 'dj_distance', 'dj_precise_name'),)
+
+
 class Klb1(models.Model):
     idklb = models.AutoField(db_column='IDKLB', primary_key=True)  # Field name made lowercase.
     titul = models.CharField(max_length=100)
@@ -222,7 +294,14 @@ class DjResult(models.Model):
     city = models.ForeignKey('DjCity', models.DO_NOTHING, blank=True, null=True)
     club = models.ForeignKey('Klb1', models.DO_NOTHING, blank=True, null=True)
     country = models.ForeignKey('DjCountry', models.DO_NOTHING, blank=True, null=True)
+    race = models.ForeignKey('Probegdist', models.DO_NOTHING)
+    runner = models.ForeignKey('DjRunner', models.DO_NOTHING, blank=True, null=True)
+    wind = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True)
+    bib_given_to_unknown = models.IntegerField()
 
     class Meta:
+        managed = False
         db_table = 'dj_result'
+
+
 
