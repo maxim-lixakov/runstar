@@ -1,18 +1,21 @@
 <!-- my_table.html -->
 
 {% extends 'base.html' %}
-
 {% block content %}
+
+<form class="search-form">
+  <label for="search-input">Search:</label>
+  <input type="search" id="search-input" name="q" placeholder="Enter search term">
+  <button type="submit">Go</button>
+</form>
 
 
 <!-- Table -->
-<table class="table">
+<table class="table" id="myTable">
   <thead>
     <tr>
-      <th>Place</th>
+      <th>Result date</th>
       <th>Name</th>
-      <th>Surname</th>
-      <th>Gender</th>
       <th>Date of Birth</th>
       <th>Distance</th>
       <th>Result</th>
@@ -20,13 +23,11 @@
   </thead>
   <tbody>
     {% for item in items %}
-      <tr>
-        <td>{{ item.id }}</td>
-        <td>{{ item.fname }}</td>
-        <td>{{ item.lname }}</td>
-        <td>{{ item.gender_raw }}</td>
-        <td>{{ item.birthday }}</td>
-        <td>{{ item.race.dist }}</td>
+      <tr class="{% if item.runner.gender == 2 %}male{% elif item.gender == 1 %}female {%else%} nd {% endif %}">
+        <td>{{ item.added_time }}</td>
+        <td>{{ item.fname }}    {{ item.lname }}</td>
+        <td>{{ item.runner.birthday }}</td>
+        <td>{{ item.race.dist | floatformat:1 }}</td>
         <td>{{ item.time_raw }}</td>
       </tr>
     {% empty %}
@@ -39,19 +40,19 @@
 
  <div class="pagination">
     {% if items.has_previous %}
-        <a href="?page=1" class="btn btn-sm btn-primary">&laquo; First</a>&nbsp
-        <a href="?page={{ items.previous_page_number }}" class="btn btn-sm btn-primary">&lsaquo; Previous</a>&nbsp
+        <a href="?q={{ search_term }}&page=1" class="btn btn-sm btn-primary">&laquo; First</a>&nbsp
+        <a href="?q={{ search_term }}&page={{ items.previous_page_number }}" class="btn btn-sm btn-primary">&lsaquo; Previous</a>&nbsp
     {% endif %}
 
     <span class="current-page">
-        &nbsp&nbspPage {{ items.number }} of {{ items.paginator.num_pages }}.&nbsp&nbsp
+        &nbsp;&nbsp;Page {{ items.number }} of {{ items.paginator.num_pages }}.&nbsp;&nbsp;
     </span>
 
     {% if items.has_next %}
-        <a href="?page={{ items.next_page_number }}" class="btn btn-sm btn-primary">Next &rsaquo;</a>&nbsp
-        <a href="?page={{ items.paginator.num_pages }}" class="btn btn-sm btn-primary">Last &raquo;</a>&nbsp
+        <a href="?q={{ search_term }}&page={{ items.next_page_number }}" class="btn btn-sm btn-primary">Next &rsaquo;</a>&nbsp
+        <a href="?q={{ search_term }}&page={{ items.paginator.num_pages }}" class="btn btn-sm btn-primary">Last &raquo;</a>&nbsp
     {% endif %}
-  </div>
+</div>
 
 {% endblock %}
 {% include "footer.html" %}

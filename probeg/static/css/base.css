@@ -1,0 +1,27 @@
+.pagination a {
+  margin-right: 10px;
+}
+
+tr.male {
+  background-color: #cfe7ff;
+}
+
+tr.female {
+  background-color: #ffeeee;
+}
+
+button {
+  border: none;
+  border-radius: 5px;
+  background-color: #ECECEC;
+  color: #555;
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+ button:hover {
+  background-color: #999;
+  color: #FFF;
+}
