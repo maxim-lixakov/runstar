@@ -4,7 +4,7 @@ from django.shortcuts import render
 from .models import DjResult
 
 
-def index(request):
+def results(request):
     item_list = DjResult.objects.all()
 
     # Get the search term from the request GET parameters
@@ -20,3 +20,7 @@ def index(request):
     items = paginator.get_page(page)
 
     return render(request, "table.html", {'items': items, 'search_term': search_term})
+
+
+def home(request):
+    return render(request, "home.html")

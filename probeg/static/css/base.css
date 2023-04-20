@@ -1,3 +1,46 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+}
+
+
+section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 10px;
+    padding: 10px;
+}
+
+article {
+    background-color: #f8fdfa;
+    border: 1px solid #ffecec;
+    flex-basis: calc(50% - 15px);
+    margin: 5px;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 24px;
+    margin: 0 0 10px;
+}
+
+p {
+    margin: 0 0 10px;
+}
+
+a {
+    color: #fab79f;
+}
+
+
 .pagination a {
   margin-right: 10px;
 }
