@@ -10,7 +10,7 @@ def index(request):
     # Get the search term from the request GET parameters
     search_term = request.GET.get('q')
 
-    if search_term:
+    if search_term and search_term != 'None':
         item_list = item_list.filter(lname__icontains=search_term) | \
                 item_list.filter(fname__icontains=search_term)
 
