@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="about-container">
+    <div class="text" class="info">
+        <h1>Ликсаков Максим</h1>
+        <p>
+        <ul class="info">
+            <li class="info">Email: mvliksakov@edu.hse.ru</li>
+            <li class="info">Github: <a href="https://github.com/maxim-lixakov/">https://github.com/maxim-lixakov</a>
+            </li>
+            <li class="info">Phone: +7 (977) 130 17 04</li>
+        </ul>
+        </p>
+    </div>
+    <div class="image">
+        {% load static %}
+        <img src="{% static 'image/me.png' %}" alt="HSE">
+    </div>
+</div>
+
+{% endblock %}
+{% include "footer.html" %}

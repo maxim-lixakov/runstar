@@ -68,5 +68,13 @@ def unique_users(request):
     return render(request, "unique_users.html", {'users': users, 'search_term': search_term})
 
 
+def about(request):
+    return render(request, "about.html")
+
+
+def contact(request):
+    return render(request, "contact.html")
+
+
 def home(request):
     return render(request, "home.html")

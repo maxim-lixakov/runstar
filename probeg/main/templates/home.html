@@ -1,23 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<section id="general">
-    <article>
-        <h1>General</h1>
-        <p><a href="results">Results Table</a></p>
-        <p><a href="general_statistics.html">General Statistics</a></p>
-        <p><a href="find">Find Your Page</a></p>
-    </article>
-</section>
-<section id="personal">
-    <article>
-        <h1>Personal</h1>
-        <p><a href="start_your_blog.html">Start Your Blog</a></p>
-        <p><a href="view_your_page.html">View Your Page</a></p>
-        <p><a href="support.html">Support</a></p>
-        <p><a href="ask_for_privileges.html">Ask for Privileges</a></p>
-    </article>
-</section>
-
+<div class="container">
+    <section id="general" id="general">
+        <article>
+            <h1>General</h1>
+            <p><a href="results">Results Table</a></p>
+            <p><a href="general_statistics.html">General Statistics</a></p>
+            <p><a href="find">Find Your Page</a></p>
+        </article>
+    </section>
+    <section id="personal" id="personal">
+        <article>
+            <h1>Personal</h1>
+            <p><a href="start_your_blog.html">Start Your Blog</a></p>
+            <p><a href="view_your_page.html">View Your Page</a></p>
+            <p><a href="support.html">Support</a></p>
+            <p><a href="ask_for_privileges.html">Ask for Privileges</a></p>
+        </article>
+    </section>
+</div>
 {% endblock %}
 {% include "footer.html" %}
