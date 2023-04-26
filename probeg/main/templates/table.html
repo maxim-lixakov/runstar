@@ -4,44 +4,60 @@
 {% block content %}
 
 <form class="search-form">
-  <label for="search-input">Search:</label>
-  <input type="search" id="search-input" name="q" placeholder="Enter search term">
-  <button type="submit">Go</button>
-</form>
+    <label for="search-input">Name:</label>
+    <input type="search" id="search-input" name="q" placeholder="Enter name" value="{{ search_term }}"><br><br>
+    <label for="distance-from">Distance from:</label>
+    <input type="number" id="distance-from" name="distance_from" placeholder="Enter distance from"
+           value=" {{ dist_from }}">
+    <label for="distance-to">to:</label>
+    <input type="number" id="distance-to" name="distance_to" placeholder="Enter distance to"
+           value="{{ dist_to }}"><br><br>
+    <label for="dob-from">Date of Birth from:</label>
+    <input type="date" id="dob-from" name="dob_from" placeholder="Enter date of birth from" value="{{ dob_from }}">
+    <label for="dob-to">to:</label>
+    <input type="date" id="dob-to" name="dob_to" placeholder="Enter date of birth to" value="{{ dob_to }}">&nbsp&nbsp
+    <!--    <label for="result-from">Result from:</label>-->
+    <!--    <input type="number" id="result-from" name="result_from" placeholder="Enter result from" value="{{ result_from }}">-->
+    <!--    <label for="result-to">to:</label>-->
+    <!--    <input type="number" id="result-to" name="result_to" placeholder="Enter result to" value="{{ result_to }}">-->
+    <button type="submit">Search</button>
+</form>    <br>
 
 
 <!-- Table -->
 <table class="table" id="myTable">
-  <thead>
+    <thead>
     <tr>
-      <th>Result date</th>
-      <th>Name</th>
-      <th>Date of Birth</th>
-      <th>Distance</th>
-      <th>Result</th>
+        <th>Result date</th>
+        <th>Name</th>
+        <th>Date of Birth</th>
+        <th>Distance</th>
+        <th>Result</th>
     </tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     {% for item in items %}
-      <tr class="{% if item.runner.gender == 2 %}male{% elif item.gender == 1 %}female {%else%} nd {% endif %}">
+    <tr class="{% if item.runner.gender == 2 %}male{% elif item.gender == 1 %}female {%else%} nd {% endif %}">
         <td>{{ item.added_time }}</td>
-        <td>{{ item.fname }}    {{ item.lname }}</td>
+        <td>{{ item.fname }} {{ item.lname }}</td>
         <td>{{ item.runner.birthday }}</td>
-        <td>{{ item.race.dist | floatformat:1 }}</td>
+        <td>{{ item.race.dist | floatformat:1 }}, {{ item.race.dist_ed }}</td>
         <td>{{ item.time_raw }}</td>
-      </tr>
+    </tr>
     {% empty %}
-      <tr>
+    <tr>
         <td colspan="7">No results found.</td>
-      </tr>
+    </tr>
     {% endfor %}
-  </tbody>
+    </tbody>
 </table>
 
- <div class="pagination">
+<div class="pagination">
     {% if items.has_previous %}
-        <a href="?q={{ search_term }}&page=1" class="btn btn-sm btn-primary">&laquo; First</a>&nbsp
-        <a href="?q={{ search_term }}&page={{ items.previous_page_number }}" class="btn btn-sm btn-primary">&lsaquo; Previous</a>&nbsp
+    <a href="?q={{ search_term }}&distance_from={{ request.GET.distance_from }}&distance_to={{ request.GET.distance_to }}&dob_from={{ request.GET.dob_from }}&dob_to={{ request.GET.dob_to }}&result_from={{ request.GET.request_from }}&result_to={{ request.GET.result_to }}&page=1"
+       class="btn btn-sm btn-primary">&laquo; First</a>&nbsp
+    <a href="?q={{ search_term }}&distance_from={{ request.GET.distance_from }}&distance_to={{ request.GET.distance_to }}&dob_from={{ request.GET.dob_from }}&dob_to={{ request.GET.dob_to }}&result_from={{ request.GET.request_from }}&result_to={{ request.GET.result_to }}&page={{ items.previous_page_number }}"
+       class="btn btn-sm btn-primary">&lsaquo; Previous</a>&nbsp
     {% endif %}
 
     <span class="current-page">
@@ -49,8 +65,10 @@
     </span>
 
     {% if items.has_next %}
-        <a href="?q={{ search_term }}&page={{ items.next_page_number }}" class="btn btn-sm btn-primary">Next &rsaquo;</a>&nbsp
-        <a href="?q={{ search_term }}&page={{ items.paginator.num_pages }}" class="btn btn-sm btn-primary">Last &raquo;</a>&nbsp
+    <a href="?q={{ search_term }}&page={{ items.next_page_number }}&&distance_from={{ request.GET.distance_from }}&distance_to={{ request.GET.distance_to }}&dob_from={{ request.GET.dob_from }}&dob_to={{ request.GET.dob_to }}&result_from={{ request.GET.request_from }}&result_to={{ request.GET.result_to }}"
+       class="btn btn-sm btn-primary">Next &rsaquo;</a>&nbsp
+    <a href="?q={{ search_term }}&page={{ items.next_page_number }}&&distance_from={{ request.GET.distance_from }}&distance_to={{ request.GET.distance_to }}&dob_from={{ request.GET.dob_from }}&dob_to={{ request.GET.dob_to }}&result_from={{ request.GET.request_from }}&result_to={{ request.GET.result_to }}"
+       class="btn btn-sm btn-primary">Last &raquo;</a>&nbsp
     {% endif %}
 </div>
 
