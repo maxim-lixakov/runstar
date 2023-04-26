@@ -1,7 +1,8 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render
+from django.db.models import Q
 
-from .models import DjResult
+from .models import DjResult, DjRunner
 
 
 def results(request):
@@ -54,6 +55,17 @@ def results(request):
         # 'result_from': result_from,
         # 'result_to': result_to,
     })
+
+
+def unique_users(request):
+    search_term = request.GET.get('q')
+    if search_term and search_term != 'None':
+        users = DjRunner.objects.filter(Q(lname__icontains=search_term) | Q(fname__icontains=search_term)).order_by(
+            '-birthday')
+    else:
+        users = []
+
+    return render(request, "unique_users.html", {'users': users, 'search_term': search_term})
 
 
 def home(request):

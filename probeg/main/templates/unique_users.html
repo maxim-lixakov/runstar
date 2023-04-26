@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form class="search-form">
+    <label for="search-input">Search:</label>
+    <input type="search" id="search-input" name="q" placeholder="Enter name" value="{{ search_term }}">
+    <button type="submit">Search</button>
+</form><br>
+
+<!-- Table -->
+<table class="table">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Date of Birth</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for user in users %}
+    <tr class="{% if user.gender == 2 %}male{% elif user.gender == 1 %}female {%else%} nd {% endif %}">
+        <td>{{ user.fname }}</td>
+        <td>{{ user.lname }}</td>
+        <td>{{ user.birthday }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="2">No results found.</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
+{% include "footer.html" %}
