@@ -4,10 +4,15 @@
 <h1>{{runner.id}}</h1>
 
  {% if user.is_authenticated and user.last_name == runner.lname %}
-   <li>User: {{ user.get_username }}</li>
-   <li><a href="{% url 'logout'%}">Logout</a></li>
+   <p>User: {{ user.get_username }}</p>
+   <p><a href="{% url 'logout'%}">Logout</a></p>
+ {% elif user.is_authenticated %}
+    {% for page in pages %}
+        <a href="{{page.url_path}}"> {{page.title}}</a>
+    {% empty %}
+    {% endfor %}
  {% else %}
-   <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+   TO DO
  {% endif %}
 
 {% endblock %}
