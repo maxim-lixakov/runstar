@@ -12,5 +12,6 @@ urlpatterns = [
     path(r'cms/', include(wagtailadmin_urls)),
     path(r'documents/', include(wagtaildocs_urls)),
     path(r'runstar/', include(wagtail_urls)),
+    path('accounts/', include('django.contrib.auth.urls')),
     path(r'', include('main.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

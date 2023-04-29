@@ -19,8 +19,8 @@
     <tbody>
     {% for user in users %}
     <tr class="{% if user.gender == 2 %}male{% elif user.gender == 1 %}female {%else%} nd {% endif %}">
-        <td>{{ user.fname }}</td>
-        <td>{{ user.lname }}</td>
+        <td><a href="profile?id={{user.id}}"> {{ user.fname }} </a></td>
+        <td><a href="profile?id={{user.id}}"> {{ user.lname }} </a></td>
         <td>{{ user.birthday }}</td>
     </tr>
     {% empty %}

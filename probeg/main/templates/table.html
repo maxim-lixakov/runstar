@@ -39,7 +39,7 @@
     {% for item in items %}
     <tr class="{% if item.runner.gender == 2 %}male{% elif item.gender == 1 %}female {%else%} nd {% endif %}">
         <td>{{ item.added_time }}</td>
-        <td>{{ item.fname }} {{ item.lname }}</td>
+        <td> <a href="profile?id={{item.runner.id}}">{{ item.fname }} {{ item.lname }} </a></td>
         <td>{{ item.runner.birthday }}</td>
         <td>{{ item.race.dist | floatformat:1 }}, {{ item.race.dist_ed }}</td>
         <td>{{ item.time_raw }}</td>
