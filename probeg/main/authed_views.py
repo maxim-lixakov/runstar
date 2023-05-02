@@ -26,9 +26,32 @@ class SignUp(CreateView):
 # @login_required
 def profile(request):
     uid = request.GET.get('id', 0)
-    current_user = request.user
-
     runner = DjRunner.objects.filter(id=uid).first()
-    pages = Page.objects.filter(owner_id=current_user.id).all()
-    print([page.url_path for page in pages])
-    return render(request, 'profile.html', {'runner': runner, 'pages': pages})
+
+    # Get the best results for all distances for the current runner
+    results = DjResult.objects.filter(runner=runner.id).order_by('race__dist', '-time_raw').distinct()
+
+    # Create a dictionary to store the best results by distance
+    best_results = {}
+    for result in results:
+        if float(result.race.dist) < 43:
+            if result.race.dist in best_results:
+                best_results[float(result.race.dist)].append(result.time_raw)
+            else:
+                best_results[float(result.race.dist)] = [result.time_raw]
+
+    # Get a list of all the distances in the best_results dictionary
+    distances = list(best_results.keys())
+
+    # Render the updated profile page template with the runner and results data
+    for res in best_results:
+        best_results[res] = best_results[res][-1]
+
+    context = {
+        'runner': runner,
+        'distances': distances,
+        'best_results': best_results.values(),
+        'n': len(distances),
+    }
+    print(context)
+    return render(request, 'profile.html', context)

@@ -1,18 +1,36 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>{{runner.id}}</h1>
+<h1>{{runner.lname}} {{runner.fname}}</h1>
 
  {% if user.is_authenticated and user.last_name == runner.lname %}
    <p>User: {{ user.get_username }}</p>
    <p><a href="{% url 'logout'%}">Logout</a></p>
- {% elif user.is_authenticated %}
-    {% for page in pages %}
-        <a href="{{page.url_path}}"> {{page.title}}</a>
-    {% empty %}
-    {% endfor %}
  {% else %}
-   TO DO
- {% endif %}
+<div class="result-table">
+  <h2>Results</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Distance</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for key in best_results %}
+      <tr>
+        <td>{{key}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 
+<div class="result-charts">
+  <h2>Results Graphs</h2>
+  {% for distance in distances %}
+    <h3>{{ distance.name }}</h3>
+    <div id="chart-{{ distance.id }}"></div>
+  {% endfor %}
+</div>
+{% endif %}
 {% endblock %}

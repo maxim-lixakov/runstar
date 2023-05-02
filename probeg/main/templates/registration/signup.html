@@ -1,16 +1,38 @@
 {% extends "base.html" %}
+
 {% block title %}Registration{% endblock %}
+
 {% block content %}
-{% if not user.is_authenticated %}
-<p><h1><a href="{% url 'login'%}">Already Registered</a></h1></p>
-<p><h1>Register:</h1></p>
-  <form method="post" action="{% url 'signup' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Register">
-  </form>
- {% else %}
-<p>You are already logged in </p>
-<p><a href="{% url 'logout'%}">Logout</a></p>
- {% endif %}
+    {% if not user.is_authenticated %}
+        <div class="row">
+            <div class="col-md-2">
+                <h1><a href="{% url 'login'%}">Already Registered</a></h1>
+            </div>
+            <div class="col-md-10">
+                <h1>Register:</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-10">
+                <form method="post" action="{% url 'signup' %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Register">
+                    </div>
+                </form>
+            </div>
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-10">
+                <p>You are already logged in</p>
+                <p><a href="{% url 'logout'%}">Logout</a></p>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}
