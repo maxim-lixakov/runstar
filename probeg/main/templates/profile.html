@@ -3,7 +3,9 @@
 
 <div class="bio">
   <h2><b>{{runner.fname}} {{runner.lname}}</b></h2><br><br>
+  {% if runner.birthday %}
   <h4>Birthday: <b>{{runner.birthday}}</b></h4>
+  {% endif %}
   {% if runner.city %}
   <h3>City: <b>{{runner.city.name}}</b></h3>
   {% endif %}
