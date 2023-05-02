@@ -25,6 +25,13 @@ class SignUp(CreateView):
 
 # @login_required
 def profile(request):
+
+    class BestResult:
+
+        def __init__(self, dist, result):
+            self.dist = dist
+            self.result = result
+
     uid = request.GET.get('id', 0)
     runner = DjRunner.objects.filter(id=uid).first()
 
@@ -44,13 +51,15 @@ def profile(request):
     distances = list(best_results.keys())
 
     # Render the updated profile page template with the runner and results data
+    pbs = []
     for res in best_results:
-        best_results[res] = best_results[res][-1]
+        pb = BestResult(res, best_results[res][-1])
+        pbs.append(pb)
 
     context = {
         'runner': runner,
         'distances': distances,
-        'best_results': best_results.values(),
+        'best_results': pbs,
         'n': len(distances),
     }
     print(context)

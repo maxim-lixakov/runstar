@@ -77,7 +77,8 @@ class Probegdist(models.Model):
     class Meta:
         managed = False
         db_table = 'ProbegDist'
-        unique_together = (('probeg_year', 'dist', 'dist_ed', 'dj_precise_name'), ('probeg_year', 'dj_distance', 'dj_precise_name'),)
+        unique_together = (
+        ('probeg_year', 'dist', 'dist_ed', 'dj_precise_name'), ('probeg_year', 'dj_distance', 'dj_precise_name'),)
 
 
 class Klb1(models.Model):
@@ -140,7 +141,6 @@ class DjCountry(models.Model):
     class Meta:
         managed = False
         db_table = 'dj_country'
-
 
 
 class Probegdist(models.Model):
@@ -213,7 +213,6 @@ class DjCity(models.Model):
 
     class Meta:
         db_table = 'dj_city'
-
 
 
 class DjRunner(models.Model):
@@ -302,6 +301,3 @@ class DjResult(models.Model):
     class Meta:
         managed = False
         db_table = 'dj_result'
-
-
-

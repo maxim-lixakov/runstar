@@ -1,36 +1,44 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>{{runner.lname}} {{runner.fname}}</h1>
+<div class="bio">
+  <h2><b>{{runner.fname}} {{runner.lname}}</b></h2><br><br>
+  <h4>Birthday: <b>{{runner.birthday}}</b></h4>
+  {% if runner.city %}
+  <h3>City: <b>{{runner.city.name}}</b></h3>
+  {% endif %}
+  {% if runner.club_name %}
+  <h3>Current running club: {{runner.club_name}}</h3>
+  {% endif %}
+</div>
+
 
  {% if user.is_authenticated and user.last_name == runner.lname %}
    <p>User: {{ user.get_username }}</p>
    <p><a href="{% url 'logout'%}">Logout</a></p>
  {% else %}
-<div class="result-table">
-  <h2>Results</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Distance</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for key in best_results %}
-      <tr>
-        <td>{{key}}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+
+<div class="results-container">
+  <div class="result-table">
+    <h1>Best Results</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Distance, km</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for result in best_results %}
+        <tr>
+          <td>{{result.dist}}</td>
+          <td>{{result.result}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
 
-<div class="result-charts">
-  <h2>Results Graphs</h2>
-  {% for distance in distances %}
-    <h3>{{ distance.name }}</h3>
-    <div id="chart-{{ distance.id }}"></div>
-  {% endfor %}
-</div>
 {% endif %}
 {% endblock %}
