@@ -1,15 +1,9 @@
 from django.db import models
-from modelcluster.fields import ParentalKey
-from wagtail.core.models import Page
-from wagtail.core.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
-from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.images.models import Image
+
 
 from wagtail.models import Page
 from wagtail.fields import RichTextField
 from wagtail.admin.panels import FieldPanel
-from wagtail.search import index
 
 
 class HomePage(Page):
@@ -57,5 +51,6 @@ class BiographyPage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('body', classname="full"),
-        ImageChooserPanel('image'),
+        FieldPanel('image'),
     ]
+
