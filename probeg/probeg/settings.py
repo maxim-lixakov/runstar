@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-@ga08#lzpwjuli=_dlth8ler%kg$myu=0=ent#by0-ybrcho^*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', '158.160.28.10']
 
 # Application definition
 
@@ -99,7 +99,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'probegorg',
         'USER': 'admin',
-        'HOST': 'host.docker.internal',  # Or an IP Address that your DB is hosted on
+        'HOST': 'db',  # Or an IP Address that your DB is hosted on
         'PORT': '3306',
         'PASSWORD': 'admin',
         'OPTIONS': {
@@ -158,3 +158,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
+
+
