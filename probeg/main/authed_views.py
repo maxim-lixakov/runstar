@@ -3,7 +3,6 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.contrib.auth.models import Group, User
 from django.views.generic import CreateView
-from wagtail.models import Page
 
 from .models import DjResult, DjRunner
 from .forms import CreationForm
@@ -14,13 +13,6 @@ class SignUp(CreateView):
     # После успешной регистрации перенаправляем пользователя на главную.
     success_url = reverse_lazy('home')
     template_name = 'registration/signup.html'
-
-    def form_valid(self, form):
-        form.instance.save()
-        group = Group.objects.get(name="Users")
-        group.user_set.add(form.instance)
-        return super(CreateView, self).form_valid(form)
-
 
 
 # @login_required

@@ -131,7 +131,7 @@ class Klb1(models.Model):
 
 class DjCountry(models.Model):
     id = models.CharField(primary_key=True, max_length=3)
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, default='-')
     nameen = models.CharField(db_column='nameEn', max_length=100)  # Field name made lowercase.
     prep_case = models.CharField(max_length=100)
     value = models.SmallIntegerField()
@@ -205,7 +205,7 @@ class DjCategorySize(models.Model):
 class DjCity(models.Model):
     raion = models.CharField(max_length=100)
     city_type = models.CharField(max_length=100)
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, default='-')
     nameen = models.CharField(db_column='nameEn', max_length=100)  # Field name made lowercase.
     url_wiki = models.CharField(max_length=200)
     skip_region = models.IntegerField()
@@ -301,3 +301,5 @@ class DjResult(models.Model):
     class Meta:
         managed = False
         db_table = 'dj_result'
+
+
