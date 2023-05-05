@@ -188,13 +188,13 @@ class Probegdist(models.Model):
     itra_score = models.SmallIntegerField()
 
     class Meta:
-        db_table = 'probegdist'
+        db_table = 'ProbegDist'
 
 
 class DjCategorySize(models.Model):
     name = models.CharField(max_length=100)
     size = models.IntegerField(blank=True, null=True)
-    race = models.ForeignKey('Probegdist', models.DO_NOTHING)
+    race = models.ForeignKey('ProbegDist', models.DO_NOTHING)
 
     class Meta:
         managed = False
@@ -293,7 +293,7 @@ class DjResult(models.Model):
     city = models.ForeignKey('DjCity', models.DO_NOTHING, blank=True, null=True)
     club = models.ForeignKey('Klb1', models.DO_NOTHING, blank=True, null=True)
     country = models.ForeignKey('DjCountry', models.DO_NOTHING, blank=True, null=True)
-    race = models.ForeignKey('Probegdist', models.DO_NOTHING)
+    race = models.ForeignKey('ProbegDist', models.DO_NOTHING)
     runner = models.ForeignKey('DjRunner', models.DO_NOTHING, blank=True, null=True)
     wind = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True)
     bib_given_to_unknown = models.IntegerField()
