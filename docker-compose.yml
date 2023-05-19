@@ -7,7 +7,7 @@ services:
     volumes:
       - ./probeg:/app
     ports:
-      - '8000:8000'
+      - '80:8000'
     depends_on:
       - db
   db:
@@ -22,4 +22,5 @@ services:
     restart: always
     volumes:
       - ./db_django:/var/lib/mysql
+
 
