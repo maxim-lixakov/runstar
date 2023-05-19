@@ -12,8 +12,7 @@ services:
     depends_on:
       - db
   db:
-    image: arm64v8/mysql:oracle
-    command: --default-authentication-plugin=mysql_native_password
+    image: mysql:8.0.2
     ports:
       - '3306:3306'
     environment:
