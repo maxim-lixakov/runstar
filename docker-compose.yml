@@ -28,6 +28,8 @@ services:
     volumes:
        - ./probeg:/app
        - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+       - /etc/ssl/run-star.crt:/etc/ssl/run-star.crt
+       - /etc/ssl/run-star.key:/etc/ssl/run-star.key
     ports:
       - "443:443"
       - "80:80"
