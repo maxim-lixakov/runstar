@@ -3,15 +3,17 @@ version: '3'
 services:
   web:
     build: ./probeg
-    command: python manage.py runserver 0.0.0.0:8000
+    restart: always
     volumes:
       - ./probeg:/app
-    ports:
-      - '80:8000'
+    command: gunicorn probeg.wsgi:application --bind 0.0.0.0:8000
+    expose:
+      - 8000
     depends_on:
       - db
   db:
-    image: mysql:8.0.2
+    image: arm64v8/mysql:oracle
+    command: --default-authentication-plugin=mysql_native_password
     ports:
       - '3306:3306'
     environment:
@@ -22,5 +24,17 @@ services:
     restart: always
     volumes:
       - ./db_django:/var/lib/mysql
+  nginx:
+    build: ./nginx
+    volumes:
+       - ./probeg:/app
+       - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+    ports:
+      - "443:443"
+      - "80:80"
+    depends_on:
+      - web
 
 
+volumes:
+  static_volume:

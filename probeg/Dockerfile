@@ -6,5 +6,7 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /app
 # Копирует все файлы из нашего локального проекта в контейнер
 ADD . /app
+RUN ["chmod", "+x", "/app/entrypoint.sh"]
 # Запускает команду pip install для всех библиотек, перечисленных в requirements.txt
 RUN pip install -r requirements.txt
+ENTRYPOINT ["sh", "/app/entrypoint.sh"]

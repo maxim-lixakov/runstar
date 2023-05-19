@@ -1,4 +1,5 @@
 Django
 wagtail
 mysqlclient
+gunicorn
 
