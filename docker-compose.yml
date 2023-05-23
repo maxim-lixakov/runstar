@@ -13,8 +13,6 @@ services:
       - db
   db:
     image: mysql:8.0.2
-    ports:
-      - '3306:3306'
     restart: always
     volumes:
       - ./db_django:/var/lib/mysql
