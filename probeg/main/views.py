@@ -68,10 +68,6 @@ def unique_users(request):
     return render(request, "unique_users.html", {'users': users, 'search_term': search_term})
 
 
-def robots(request):
-    return render(request, "robots.txt")
-
-
 def about(request):
     return render(request, "about.html")
 
@@ -82,3 +78,4 @@ def contact(request):
 
 def home(request):
     return render(request, "home.html")
+
