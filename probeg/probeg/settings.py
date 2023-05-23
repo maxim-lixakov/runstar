@@ -81,11 +81,11 @@ WSGI_APPLICATION = 'probeg.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'probegorg',
-        'USER': 'admin',
+        'NAME': '*******',
+        'USER': '*******',
         'HOST': 'db',  # Or an IP Address that your DB is hosted on
         'PORT': '3306',
-        'PASSWORD': 'admin',
+        'PASSWORD': '******',
         'OPTIONS': {
             "init_command": "SET foreign_key_checks = 1;",
         },
