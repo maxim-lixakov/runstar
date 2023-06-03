@@ -1,11 +1,16 @@
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.contrib.auth.models import Group, User
 from django.views.generic import CreateView
+from scipy import interpolate
 
 from .models import DjResult, DjRunner
 from .forms import CreationForm
+
+
+# create interpolation function
+y = [800, 1000, 1500, 3000, 5000, 10000, 21100, 42200]
+x = [116, 148, 235, 510, 880, 1850, 4140, 8910]
+f2 = interpolate.interp1d(x, y, kind = 'cubic', fill_value="extrapolate")
 
 
 class SignUp(CreateView):
@@ -44,6 +49,43 @@ def profile(request):
         # Get a list of all the distances in the best_results dictionary
         distances = list(best_results.keys())
 
+
+        # create graph
+        time_objs = []
+        dist_objs = []
+        metrics = []
+        for result in DjResult.objects.filter(runner=runner.id).order_by('added_time').distinct():
+            if float(result.race.dist) < 43 and  float(result.race.dist) > 0.6:
+                components = result.time_raw.split(':')
+                if len(components) == 3:
+                    hours = int(components[0])
+                    minutes = int(components[1])
+                    seconds_milliseconds = components[2].split('.')
+                    if len(seconds_milliseconds) == 2:
+                        seconds = int(seconds_milliseconds[0])
+                        milliseconds = int(seconds_milliseconds[1])
+                    else:
+                        print("Invalid input. The string does not match the expected format.")
+                        continue
+                elif len(components) == 2:
+                    minutes = int(components[0])
+                    seconds_milliseconds = components[1].split('.')
+                    if len(seconds_milliseconds) == 2:
+                        seconds = int(seconds_milliseconds[0])
+                        milliseconds = int(seconds_milliseconds[1])
+                    else:
+                        print("Invalid input. The string does not match the expected format.")
+                        continue
+                else:
+                    print("Invalid input. The string does not match the expected format.")
+                    continue
+                seconds = (hours * 3600) + (minutes * 60) + seconds + (milliseconds / 1000)
+                metric = float(result.race.dist*1000)/f2(seconds)
+                if metric < 2:
+                    time_objs.append(seconds)
+                    dist_objs.append(result.race.dist*1000)
+                    metrics.append(float(result.race.dist*1000)/f2(seconds))
+
         # Render the updated profile page template with the runner and results data
         pbs = []
         for res in best_results:
@@ -55,6 +97,8 @@ def profile(request):
             'distances': distances,
             'best_results': pbs,
             'n': len(distances),
+            "labels": dist_objs,
+            "values": metrics,
         }
         return render(request, 'profile.html', context)
     else:
