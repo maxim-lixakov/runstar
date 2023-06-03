@@ -101,21 +101,56 @@ li.info {
 }
 
 .result-table {
-    border-collapse: separate;
-    border-spacing: 30px;
-    border: 2px solid black;
+    border-radius: 20px; /* Adjust the value as needed */
     margin-bottom: 20px;
 }
 
 .result-table th, .result-table td {
     padding: 10px;
-    border: 1px solid black;
 }
 
 canvas {
-float: left;
+    float: left;
 }
 
 div.bio, div.result-table {
-    display:inline-block;
+    display: inline-block;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
+
+/* Variables */
+:root {
+    --base-spacing-unit: 24px;
+    --half-spacing-unit: calc(var(--base-spacing-unit) / 2);
+    --color-alpha: #4bc0c0;
+    --color-form-highlight: #EEEEEE;
+}
+
+/* Reset */
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+table.result-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 20px; /* Adjust the value as needed */
+    margin-bottom: 20px;
+}
+
+th.result-table,
+td.result-table {
+    padding: var(--half-spacing-unit);
+}
+
+th.result-table {
+    background: var(--color-alpha);
+    color: white;
+}
+
+tr.result-table:nth-of-type(odd) {
+    background: var(--color-form-highlight);
 }

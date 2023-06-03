@@ -2,18 +2,17 @@
 {% block content %}
 
 <div class="bio">
-  <h2><b>{{runner.fname}} {{runner.lname}}</b></h2><br><br>
+  <h2><b>{{runner.fname}} {{runner.lname}}</b></h2>
   {% if runner.birthday %}
-  <h4>Birthday: <b>{{runner.birthday}}</b></h4>
-  {% endif %}
-  {% if runner.city %}
-  <h3>City: <b>{{runner.city.name}}</b></h3>
+  <h5><b>{{runner.birthday}}{% if runner.city %}<b>, {{runner.city.name}} {% endif %}</b></b></h5>
   {% endif %}
   {% if runner.club_name %}
-  <h3>Current running club: {{runner.club_name}}</h3>
+  <h5>Current running club: <b>{{runner.club_name}}</b></h5>
   {% endif %}
-    <br>
-        <br>
+  <br>
+  <br>
+  <br>
+  <br>
       <canvas id="myChart" width="800" height="400"></canvas>
 </div>
 
@@ -28,16 +27,16 @@
     <h1>Best Results</h1>
     <table>
       <thead>
-        <tr>
-          <th>Distance, km</th>
-          <th>Time</th>
+        <tr class="result-table">
+          <th class="result-table">Distance, km</th>
+          <th class="result-table">Time</th>
         </tr>
       </thead>
       <tbody>
         {% for result in best_results %}
-        <tr>
-          <td>{{result.dist}}</td>
-          <td>{{result.result}}</td>
+        <tr class="result-table">
+          <td class="result-table">{{result.dist}}</td>
+          <td class="result-table">{{result.result}}</td>
         </tr>
         {% endfor %}
       </tbody>
