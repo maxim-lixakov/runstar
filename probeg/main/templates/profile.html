@@ -12,6 +12,9 @@
   {% if runner.club_name %}
   <h3>Current running club: {{runner.club_name}}</h3>
   {% endif %}
+    <br>
+        <br>
+      <canvas id="myChart" width="800" height="400"></canvas>
 </div>
 
 
@@ -41,7 +44,6 @@
     </table>
   </div>
 </div>
-<canvas id="myChart" width="800" height="400"></canvas>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
   const ctx = document.getElementById('myChart').getContext('2d');

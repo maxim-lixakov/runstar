@@ -112,6 +112,10 @@ li.info {
     border: 1px solid black;
 }
 
+canvas {
+float: left;
+}
+
 div.bio, div.result-table {
     display:inline-block;
 }

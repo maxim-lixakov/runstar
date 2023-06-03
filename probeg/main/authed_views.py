@@ -54,37 +54,41 @@ def profile(request):
         time_objs = []
         dist_objs = []
         metrics = []
-        for result in DjResult.objects.filter(runner=runner.id).order_by('added_time').distinct():
-            if float(result.race.dist) < 43 and  float(result.race.dist) > 0.6:
-                components = result.time_raw.split(':')
-                if len(components) == 3:
-                    hours = int(components[0])
-                    minutes = int(components[1])
-                    seconds_milliseconds = components[2].split('.')
-                    if len(seconds_milliseconds) == 2:
-                        seconds = int(seconds_milliseconds[0])
-                        milliseconds = int(seconds_milliseconds[1])
+
+        try:
+            for result in DjResult.objects.filter(runner=runner.id).order_by('added_time').distinct():
+                if float(result.race.dist) < 43 and  float(result.race.dist) > 0.6:
+                    components = result.time_raw.split(':')
+                    if len(components) == 3:
+                        hours = int(components[0])
+                        minutes = int(components[1])
+                        seconds_milliseconds = components[2].split('.')
+                        if len(seconds_milliseconds) == 2:
+                            seconds = int(seconds_milliseconds[0])
+                            milliseconds = int(seconds_milliseconds[1])
+                        else:
+                            print("Invalid input. The string does not match the expected format.")
+                            continue
+                    elif len(components) == 2:
+                        minutes = int(components[0])
+                        seconds_milliseconds = components[1].split('.')
+                        if len(seconds_milliseconds) == 2:
+                            seconds = int(seconds_milliseconds[0])
+                            milliseconds = int(seconds_milliseconds[1])
+                        else:
+                            print("Invalid input. The string does not match the expected format.")
+                            continue
                     else:
                         print("Invalid input. The string does not match the expected format.")
                         continue
-                elif len(components) == 2:
-                    minutes = int(components[0])
-                    seconds_milliseconds = components[1].split('.')
-                    if len(seconds_milliseconds) == 2:
-                        seconds = int(seconds_milliseconds[0])
-                        milliseconds = int(seconds_milliseconds[1])
-                    else:
-                        print("Invalid input. The string does not match the expected format.")
-                        continue
-                else:
-                    print("Invalid input. The string does not match the expected format.")
-                    continue
-                seconds = (hours * 3600) + (minutes * 60) + seconds + (milliseconds / 1000)
-                metric = float(result.race.dist*1000)/f2(seconds)
-                if metric < 2:
-                    time_objs.append(seconds)
-                    dist_objs.append(result.race.dist*1000)
-                    metrics.append(float(result.race.dist*1000)/f2(seconds))
+                    seconds = (hours * 3600) + (minutes * 60) + seconds + (milliseconds / 1000)
+                    metric = float(result.race.dist*1000)/f2(seconds)
+                    if metric < 2:
+                        time_objs.append(seconds)
+                        dist_objs.append(result.race.dist*1000)
+                        metrics.append(float(result.race.dist*1000)/f2(seconds))
+        except ValueError:
+            print(f'GOT VALUE ERROR for user with id: {uid}')
 
         # Render the updated profile page template with the runner and results data
         pbs = []

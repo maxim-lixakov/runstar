@@ -20,8 +20,8 @@ def results(request):
     result_to = request.GET.get('result_to')
 
     if search_term and search_term != 'None':
-        item_list = item_list.filter(lname__icontains=search_term) | \
-                    item_list.filter(fname__icontains=search_term)
+        item_list = item_list.filter(
+            lname__icontains=search_term) | item_list.filter(fname__icontains=search_term)
 
     if dist_from and dist_from != 'None':
         item_list = item_list.filter(race__dist__gte=float(dist_from))
@@ -38,10 +38,14 @@ def results(request):
     if result_to and result_to != 'None':
         item_list = item_list.filter(time_raw__lte=float(result_to))
 
-    item_list = item_list.order_by('time_raw')
+    # Apply slicing to fetch only the top N rows
+    top_n = 100  # Choose the desired number of top rows
+    item_list = item_list[:top_n]
+
+    # Count the total number of items for pagination
+    total_items = item_list.count()
 
     paginator = Paginator(item_list, 25)  # Show 25 items per page
-
     page = request.GET.get('page')
     items = paginator.get_page(page)
 
@@ -52,10 +56,10 @@ def results(request):
         'dist_to': dist_to,
         'dob_from': dob_from,
         'dob_to': dob_to,
-        # 'result_from': result_from,
-        # 'result_to': result_to,
+        'result_from': result_from,
+        'result_to': result_to,
+        'total_items': total_items,
     })
-
 
 def unique_users(request):
     search_term = request.GET.get('q')
