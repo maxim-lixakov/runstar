@@ -53,6 +53,7 @@ def profile(request):
         # create graph
         time_objs = []
         dist_objs = []
+        dates = []
         metrics = []
 
         try:
@@ -86,6 +87,7 @@ def profile(request):
                     if metric < 2:
                         time_objs.append(seconds)
                         dist_objs.append(result.race.dist*1000)
+                        dates.append(result.added_time.strftime("%Y-%m-%d"))
                         metrics.append(float(result.race.dist*1000)/f2(seconds))
         except ValueError:
             print(f'GOT VALUE ERROR for user with id: {uid}')
@@ -101,7 +103,7 @@ def profile(request):
             'distances': distances,
             'best_results': pbs,
             'n': len(distances),
-            "labels": dist_objs,
+            "labels": dates,
             "values": metrics,
         }
         return render(request, 'profile.html', context)
