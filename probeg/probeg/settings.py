@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-@ga08#lzpwjuli=_dlth8ler%kg$myu=0=ent#by0-ybrcho^*
 DEBUG = False
 
 ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', '158.160.28.10', 'run-star.ru',
-                 'www.run-star.ru', 'mail.run-star.ru']
+                 'www.run-star.ru', 'mail.run-star.ru', 'run-star.online', 'www.run-star.online']
 
 # Application definition
 
